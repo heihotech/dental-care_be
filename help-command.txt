@@ -1,0 +1,104 @@
+sequelize model:create --name NursingDiagnosisCategory --attributes name:string
+sequelize model:create --name NursingDiagnosisSymptom --attributes name:string
+sequelize model:create --name NursingDiagnosisCause --attributes name:string
+sequelize model:create --name NursingDiagnosis --attributes name:string
+
+sequelize model:create --name NursingOutcomeCriteria --attributes name:string
+sequelize model:create --name NursingOutcome --attributes name:string
+
+sequelize model:create --name NursingInterventionAction --attributes name:string
+sequelize model:create --name NursingIntervention --attributes name:string
+
+sequelize model:create --name NursingDiagnosisSymptomRelation --attributes name:string
+sequelize model:create --name NursingDiagnosisCauseRelation --attributes name:string
+sequelize model:create --name NursingOutcomeCriteriaRelation --attributes name:string
+sequelize model:create --name NursingInterventionActionRelation --attributes name:string
+sequelize model:create --name NursingDiagnosisOutcomeRelation --attributes name:string
+sequelize model:create --name NursingDiagnosisInterventionRelation --attributes name:string
+
+sequelize model:create --name NursingCareDiagnosis --attributes name:string
+sequelize model:create --name NursingCareCriteria --attributes name:string
+sequelize model:create --name NursingCareAction --attributes name:string
+
+
+sequelize model:create --name NursingDiagnosisClinicalConditions --attributes name:string
+sequelize model:create --name NursingDiagnosisClinicalConditionRelations --attributes name:string
+
+sequelize model:create --name Allergy --attributes name:string
+sequelize model:create --name PatientAllergy --attributes name:string
+sequelize model:create --name Disease --attributes name:string
+sequelize model:create --name PatientDisease --attributes name:string
+
+sequelize model:create --name OutpatientMedicalResume --attributes name:string
+sequelize model:create --name OutpatientMedicalResumeIcdX --attributes name:string
+sequelize model:create --name OutpatientMedicalResumeIcdIX --attributes name:string
+
+sequelize model:create --name PharmacyPool --attributes name:string
+sequelize model:create --name PharmacyUnit --attributes name:string
+sequelize model:create --name MedicineTag --attributes name:string
+sequelize model:create --name MedicineStockMovement --attributes name:string
+
+sequelize model:create --name MedicalResumeMedicine --attributes name:string
+sequelize model:create --name MedicinePackage --attributes name:string
+
+sequelize model:create --name Batch --attributes name:string
+sequelize model:create --name MedicineBatch --attributes name:string
+
+
+
+
+
+sequelize seed:create --name states
+sequelize seed:create --name icdix
+
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      guid: {
+        allowNull: false,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
+      },
+      created_at: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updated_at: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      deleted_at: {
+        allowNull: true,
+        type: Sequelize.DATE,
+      },
+
+
+
+
+      created_by_id: {
+        type: Sequelize.BIGINT,
+        allowNull: true,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
+      },
+      updated_by_id: {
+        type: Sequelize.BIGINT,
+        allowNull: true,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
+      },
+      deleted_by_id: {
+        type: Sequelize.BIGINT,
+        allowNull: true,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
+      },

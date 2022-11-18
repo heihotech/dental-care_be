@@ -1,0 +1,20 @@
+module.exports = (services) => {
+  require('./permission')(services)
+  require('./user')(services)
+  require('./role')(services)
+  require('./region/province')(services)
+  require('./region/city')(services)
+  require('./region/district')(services)
+  require('./region/village')(services)
+  require('./region/address')(services)
+  require('./patient')(services)
+  require('./insurance')(services)
+  require('./document/tag')(services)
+  require('./document/folder')(services)
+  require('./document/file')(services)
+  require('./clinic')(services)
+  require('./doctor')(services)
+  // pharmacy
+  require('./pharmacy/medicine')(services)
+  require('./pharmacy/pharmacy-pool')(services)
+}
