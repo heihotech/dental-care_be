@@ -15,21 +15,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'addressId',
         as: 'address',
       })
-      // Profile.belongsToMany(models.Profile, {
-      //   through: models.ProfileRelation,
-      //   foreignKey: 'relatedProfileId',
-      //   as: 'associatedTo',
-      // })
-      Profile.belongsToMany(models.Profile, {
-        through: models.ProfileRelation,
-        foreignKey: 'profileId',
-        as: 'relatedFromProfiles',
-      })
-      Profile.belongsToMany(models.Profile, {
-        through: models.ProfileRelation,
-        foreignKey: 'relatedProfileId',
-        as: 'relatedToProfiles',
-      })
     }
   }
   Profile.init(
@@ -50,29 +35,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         field: 'full_name',
       },
-      frontTitle: {
-        allowNull: true,
-        type: DataTypes.STRING,
-        field: 'front_title',
-      },
-      endTitle: {
-        allowNull: true,
-        type: DataTypes.STRING,
-        field: 'end_title',
-      },
       nik: {
         allowNull: true,
         type: DataTypes.STRING,
       },
-      nip: {
+      employeeId: {
         allowNull: true,
         type: DataTypes.STRING,
-      },
-      nipType: {
-        allowNull: true,
-        type: DataTypes.ENUM('NIP', 'NIKY'),
-        defaultValue: 'NIKY',
-        field: 'nip_type',
+        field: 'employee_id',
       },
       gender: {
         allowNull: true,

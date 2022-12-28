@@ -13,22 +13,6 @@ module.exports = (sequelize, DataTypes) => {
         through: models.UserRole,
         as: 'users',
       })
-      Role.belongsToMany(models.Permission, {
-        through: models.RolePermission,
-        as: 'permissions',
-      })
-      Role.belongsTo(models.User, {
-        foreignKey: 'createdById',
-        as: 'createdBy',
-      })
-      Role.belongsTo(models.User, {
-        foreignKey: 'deletedById',
-        as: 'deletedBy',
-      })
-      Role.belongsTo(models.User, {
-        foreignKey: 'updatedById',
-        as: 'updatedBy',
-      })
     }
   }
   Role.init(
@@ -45,15 +29,12 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: DataTypes.UUIDV4,
       },
       name: {
-        unique: true,
+        allowNull: false,
         type: DataTypes.STRING,
       },
-      description: {
+      display: {
+        allowNull: false,
         type: DataTypes.STRING,
-      },
-      level: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
       },
       createdAt: {
         allowNull: false,
@@ -69,21 +50,6 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         type: DataTypes.DATE,
         field: 'deleted_at',
-      },
-      deletedById: {
-        allowNull: true,
-        type: DataTypes.BIGINT,
-        field: 'deleted_by_id',
-      },
-      createdById: {
-        allowNull: true,
-        type: DataTypes.BIGINT,
-        field: 'created_by_id',
-      },
-      updatedById: {
-        allowNull: true,
-        type: DataTypes.BIGINT,
-        field: 'updated_by_id',
       },
     },
     {

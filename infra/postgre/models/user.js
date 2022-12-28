@@ -14,71 +14,6 @@ module.exports = (sequelize, DataTypes) => {
         through: models.UserRole,
         as: 'roles',
       })
-      User.belongsToMany(models.Permission, {
-        through: models.UserPermission,
-        as: 'permissions',
-      })
-      User.hasMany(models.Role, {
-        foreignKey: 'createdById',
-        as: 'createdRoles',
-      })
-      User.hasMany(models.Role, {
-        foreignKey: 'updatedById',
-        as: 'updatedRoles',
-      })
-      User.hasMany(models.Role, {
-        foreignKey: 'deletedById',
-        as: 'deletedRoles',
-      })
-      User.hasMany(models.Permission, {
-        foreignKey: 'createdById',
-        as: 'createdPermissions',
-      })
-      User.hasMany(models.Permission, {
-        foreignKey: 'updatedById',
-        as: 'updatedPermissions',
-      })
-      User.hasMany(models.Permission, {
-        foreignKey: 'deletedById',
-        as: 'deletedPermissions',
-      })
-      //
-      User.hasMany(models.PharmacyProcurement, {
-        foreignKey: 'creatorId',
-        as: 'createdProcurements',
-      })
-      User.hasMany(models.PharmacyProcurement, {
-        foreignKey: 'validatorId',
-        as: 'validatedProcurements',
-      })
-      User.hasMany(models.PharmacyProcurementItem, {
-        foreignKey: 'creatorId',
-        as: 'createdProcurementItems',
-      })
-      User.hasMany(models.PharmacyProcurementItem, {
-        foreignKey: 'validatorId',
-        as: 'validatedProcurementItems',
-      })
-      User.hasMany(models.PharmacyProcurementItem, {
-        foreignKey: 'receiverId',
-        as: 'receivedProcurementItems',
-      })
-      User.hasMany(models.MedicineStockMovement, {
-        foreignKey: 'creatorId',
-        as: 'createdMedicineStockMovements',
-      })
-      User.hasMany(models.MedicineStockMovement, {
-        foreignKey: 'validatorId',
-        as: 'validatedMedicineStockMovements',
-      })
-      User.hasMany(models.MedicineRecipe, {
-        foreignKey: 'creatorId',
-        as: 'createdMedicineRecipes',
-      })
-      User.hasMany(models.MedicineRecipe, {
-        foreignKey: 'validatorId',
-        as: 'validatedMedicineRecipes',
-      })
     }
   }
   User.init(
@@ -96,19 +31,18 @@ module.exports = (sequelize, DataTypes) => {
       },
       username: {
         type: DataTypes.STRING,
+        unique: true,
       },
       email: {
         type: DataTypes.STRING,
+        unique: true,
       },
       password: {
         type: DataTypes.STRING,
       },
       phone: {
         type: DataTypes.STRING,
-      },
-      smsVerificationCode: {
-        type: DataTypes.STRING,
-        field: 'sms_verification_code',
+        unique: true,
       },
       profileId: {
         allowNull: true,
@@ -145,14 +79,11 @@ module.exports = (sequelize, DataTypes) => {
       ...modelInit,
       modelName: 'User',
       defaultScope: {
-        attributes: { exclude: ['password', 'smsVerificationCode'] },
+        attributes: { exclude: ['password'] },
       },
       scopes: {
         withPassword: {
           attributes: { include: ['password'] },
-        },
-        withSmsVerificationCode: {
-          attributes: { include: ['smsVerificationCode'] },
         },
       },
     }

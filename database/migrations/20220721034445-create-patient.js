@@ -1,7 +1,7 @@
 'use strict'
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('external_hospitals', {
+    await queryInterface.createTable('patients', {
       id: {
         allowNull: false,
         primaryKey: true,
@@ -13,13 +13,42 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
       },
-      name: {
+      phone_number: {
         allowNull: true,
         type: Sequelize.STRING,
       },
-      type: {
+      email: {
         allowNull: true,
         type: Sequelize.STRING,
+      },
+      full_name: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      nik: {
+        allowNull: true,
+        type: Sequelize.STRING,
+      },
+      gender: {
+        allowNull: true,
+        type: Sequelize.ENUM('M', 'F'),
+        defaultValue: 'F',
+      },
+      religion: {
+        allowNull: true,
+        type: Sequelize.STRING,
+      },
+      birth_date: {
+        allowNull: true,
+        type: Sequelize.DATEONLY,
+      },
+      avatar_url: {
+        allowNull: true,
+        type: Sequelize.STRING,
+      },
+      is_indonesian: {
+        allowNull: true,
+        type: Sequelize.BOOLEAN,
       },
       address_id: {
         allowNull: true,
@@ -44,6 +73,6 @@ module.exports = {
     })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('external_hospitals')
+    await queryInterface.dropTable('patients')
   },
 }

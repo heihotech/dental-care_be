@@ -17,26 +17,13 @@ module.exports = {
         allowNull: true,
         type: Sequelize.STRING,
       },
-      front_title: {
-        allowNull: true,
-        type: Sequelize.STRING,
-      },
-      end_title: {
-        allowNull: true,
-        type: Sequelize.STRING,
-      },
       nik: {
         allowNull: true,
         type: Sequelize.STRING,
       },
-      nip: {
+      employee_id: {
         allowNull: true,
         type: Sequelize.STRING,
-      },
-      nip_type: {
-        allowNull: true,
-        type: Sequelize.ENUM('NIP', 'NIKY'),
-        defaultValue: 'NIKY',
       },
       gender: {
         allowNull: true,

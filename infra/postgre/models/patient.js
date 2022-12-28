@@ -9,17 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Patient.hasMany(models.Insurance, {
-        foreignKey: 'patientId',
-        as: 'insurances',
-      })
       Patient.belongsTo(models.Address, {
         foreignKey: 'addressId',
         as: 'address',
-      })
-      Patient.hasMany(models.Outpatient, {
-        foreignKey: 'patientId',
-        as: 'outpatients',
       })
     }
   }
@@ -45,31 +37,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         type: DataTypes.STRING,
       },
-      mrNumber: {
-        allowNull: true,
-        type: DataTypes.STRING,
-        unique: true,
-        field: 'mr_number',
-      },
-      bpjsNumber: {
-        allowNull: true,
-        type: DataTypes.STRING,
-        field: 'bpjs_number',
-      },
       fullName: {
         allowNull: true,
         type: DataTypes.STRING,
         field: 'full_name',
-      },
-      frontTitle: {
-        allowNull: true,
-        type: DataTypes.STRING,
-        field: 'front_title',
-      },
-      endTitle: {
-        allowNull: true,
-        type: DataTypes.STRING,
-        field: 'end_title',
       },
       nik: {
         allowNull: true,

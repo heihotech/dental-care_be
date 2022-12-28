@@ -9,9 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Doctor.belongsTo(models.Profile, {
-        foreignKey: 'profileId',
-        as: 'profile',
+      Doctor.belongsTo(models.User, {
+        foreignKey: 'userId',
+        as: 'user',
       })
       Doctor.hasMany(models.DoctorClinic, {
         foreignKey: 'doctorId',
@@ -36,17 +36,13 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         type: DataTypes.STRING,
       },
-      profileId: {
+      userId: {
         type: DataTypes.BIGINT,
         references: {
-          model: 'profiles',
+          model: 'users',
           key: 'id',
         },
-        field: 'profile_id',
-      },
-      code: {
-        unique: true,
-        type: DataTypes.STRING,
+        field: 'user_id',
       },
       createdAt: {
         allowNull: false,

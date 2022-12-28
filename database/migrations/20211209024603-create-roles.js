@@ -14,10 +14,9 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4,
       },
       name: {
-        unique: true,
         type: Sequelize.STRING,
       },
-      description: {
+      display: {
         type: Sequelize.STRING,
       },
       level: {

@@ -8,11 +8,11 @@ module.exports = {
         type: Sequelize.BIGINT,
         autoIncrement: true,
       },
-      patient_registration_id: {
+      patient_id: {
         allowNull: true,
         type: Sequelize.BIGINT,
         references: {
-          model: 'patient_registrations',
+          model: 'patients',
           key: 'id',
         },
       },
@@ -32,23 +32,37 @@ module.exports = {
           key: 'id',
         },
       },
-      book_code: {
-        type: Sequelize.STRING,
-      },
-      qr_book_code: {
+      arrival_plan: {
+        type: Sequelize.DATEONLY,
         allowNull: true,
-        type: Sequelize.STRING,
-      },
-      qr_book_code_url: {
-        allowNull: true,
-        type: Sequelize.STRING,
       },
       arrival_estimation: {
         type: Sequelize.DATE,
+        allowNull: true,
       },
-      // {1 (UMUM), 2 (BPJS PBI), 3 (BPJS NON PBI)}
-      patient_type: {
-        type: Sequelize.INTEGER,
+      arrival: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
+      patient_complaint: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+      },
+      diagnose: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+      },
+      therapy: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+      },
+      therapy: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+      },
+      cost: {
+        type: Sequelize.DECIMAL,
+        allowNull: true,
       },
       deleted_at: {
         allowNull: true,

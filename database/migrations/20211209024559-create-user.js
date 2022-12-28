@@ -15,18 +15,18 @@ module.exports = {
       },
       username: {
         type: Sequelize.STRING,
+        unique: true,
       },
       email: {
         type: Sequelize.STRING,
+        unique: true,
       },
       password: {
         type: Sequelize.STRING,
       },
       phone: {
         type: Sequelize.STRING,
-      },
-      sms_verification_code: {
-        type: Sequelize.STRING,
+        unique: true,
       },
       profile_id: {
         allowNull: true,

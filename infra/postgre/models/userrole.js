@@ -51,21 +51,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         field: 'deleted_at',
       },
-      deletedById: {
-        allowNull: true,
-        type: DataTypes.BIGINT,
-        field: 'deleted_by_id',
-      },
-      createdById: {
-        allowNull: true,
-        type: DataTypes.BIGINT,
-        field: 'created_by_id',
-      },
-      updatedById: {
-        allowNull: true,
-        type: DataTypes.BIGINT,
-        field: 'updated_by_id',
-      },
     },
     {
       sequelize,

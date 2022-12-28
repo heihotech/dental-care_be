@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Clinic.hasMany(models.DoctorClinic, {
         foreignKey: 'clinicId',
-        as: 'doctorClinics',
+        as: 'ClinicDoctors',
       })
     }
   }
@@ -29,12 +29,15 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: DataTypes.UUIDV4,
       },
       name: {
-        unique: true,
         type: DataTypes.STRING,
       },
       code: {
-        unique: true,
         type: DataTypes.STRING,
+      },
+      isShow: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        field: 'is_show',
       },
       createdAt: {
         allowNull: false,

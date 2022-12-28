@@ -25,10 +25,6 @@ module.exports = {
           key: 'id',
         },
       },
-      code: {
-        unique: true,
-        type: Sequelize.STRING,
-      },
       deleted_at: {
         allowNull: true,
         type: Sequelize.DATE,

@@ -18,10 +18,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'addressId',
         as: 'patient',
       })
-      Address.hasMany(models.Supplier, {
-        foreignKey: 'addressId',
-        as: 'suppliers',
-      })
     }
   }
   Address.init(
