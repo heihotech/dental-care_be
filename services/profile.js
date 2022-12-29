@@ -11,11 +11,8 @@ const ErrorMessage = {
 
 const joiQueries = {
   fullName: Joi.string().optional().min(3),
-  frontTitle: Joi.string().optional().min(1),
-  endTitle: Joi.string().optional().min(1),
   nik: Joi.string().optional().min(3),
-  nip: Joi.string().optional().min(3),
-  nipType: Joi.string().optional().valid('NIP', 'NIKY'),
+  employeeId: Joi.string().optional().min(3),
   gender: Joi.string().optional().valid('M', 'F'),
   religion: Joi.string().optional().min(3),
   isIndonesian: Joi.boolean().optional().allow('', null),
@@ -23,15 +20,11 @@ const joiQueries = {
 }
 const joiParams = {
   withUser: Joi.bool().optional().default(false),
-  withRelatedProfiles: Joi.bool().optional().default(false),
 }
 const joiCreatePayload = {
   fullName: Joi.string().required().min(3),
-  frontTitle: Joi.string().required().min(1),
-  endTitle: Joi.string().required().min(1),
   nik: Joi.string().required().min(3),
-  nip: Joi.string().required().min(3),
-  nipType: Joi.string().required().valid('NIP', 'NIKY'),
+  employeeId: Joi.string().required().min(3),
   gender: Joi.string().required().valid('M', 'F'),
   religion: Joi.string().required().min(3),
   birthDate: JoiDate.date().format('DD-MM-YYYY').required(),
@@ -40,11 +33,8 @@ const joiCreatePayload = {
 }
 const joiEditPayload = {
   fullName: Joi.string().optional().min(3),
-  frontTitle: Joi.string().optional().min(1),
-  endTitle: Joi.string().optional().min(1),
   nik: Joi.string().optional().min(3),
-  nip: Joi.string().optional().min(3),
-  nipType: Joi.string().optional().valid('NIP', 'NIKY'),
+  employeeId: Joi.string().optional().min(3),
   gender: Joi.string().optional().valid('M', 'F'),
   religion: Joi.string().optional().min(3),
   birthDate: JoiDate.date().format('DD-MM-YYYY').optional(),
@@ -62,11 +52,8 @@ module.exports = ({ models }) => {
   const h = handler('Profile', 'profileId', { models })
   const buildQuery = ({
     fullName,
-    frontTitle,
-    endTitle,
     nik,
-    nip,
-    nipType,
+    employeeId,
     gender,
     religion,
     isIndonesian,
@@ -78,31 +65,17 @@ module.exports = ({ models }) => {
         fullName: { [Op.iLike]: `%${fullName}%` },
       })
     }
-    if (frontTitle) {
-      condition.push({
-        frontTitle: { [Op.iLike]: `%${frontTitle}%` },
-      })
-    }
-    if (endTitle) {
-      condition.push({
-        endTitle: { [Op.iLike]: `%${endTitle}%` },
-      })
-    }
     if (nik) {
       condition.push({
         nik: { [Op.iLike]: `%${nik}%` },
       })
     }
-    if (nip) {
+    if (employeeId) {
       condition.push({
-        nip: { [Op.iLike]: `%${nip}%` },
+        employeeId: { [Op.iLike]: `%${employeeId}%` },
       })
     }
-    if (nipType) {
-      condition.push({
-        nipType: { [Op.eq]: nipType },
-      })
-    }
+
     if (gender) {
       condition.push({
         gender: { [Op.eq]: gender },
@@ -125,39 +98,10 @@ module.exports = ({ models }) => {
   const parseRelations = (relations = {}, params) => {
     const include = []
     const { User, Profile } = models
-    const { withUser, withRelatedProfiles } = relations
+    const { withUser } = relations
 
     if (withUser) {
       include.push({ model: User, as: 'user' })
-    }
-
-    if (withRelatedProfiles) {
-      include.push({
-        model: Profile,
-        as: 'relatedFromProfiles',
-        attributes: { exclude: ['createdAt', 'updatedAt', 'deletedAt'] },
-        through: {
-          where: {
-            profileId: params.profileId,
-          },
-          attributes: ['relationType'],
-          as: 'profileRelation',
-        },
-      })
-      include.push({
-        model: Profile,
-        as: 'relatedToProfiles',
-        attributes: {
-          exclude: ['createdAt', 'updatedAt', 'deletedAt'],
-        },
-        through: {
-          where: {
-            relatedProfileId: params.profileId,
-          },
-          attributes: ['relationType'],
-          as: 'profileRelation',
-        },
-      })
     }
 
     return include
@@ -208,16 +152,6 @@ module.exports = ({ models }) => {
     }
   }
 
-  const InsertRelation = async (params, payload) =>
-    await h.Insert({
-      payload: payload,
-      modelFrom: 'Profile',
-      modelFromAttribute: 'profileId',
-      modelToAttribute: 'relatedProfileId',
-      modelThrough: 'ProfileRelation',
-      params: params,
-    })
-
   return {
     ValidateQueries,
     ValidateParams,
@@ -232,7 +166,6 @@ module.exports = ({ models }) => {
     Restore,
     Update,
     InjectActor,
-    InsertRelation,
     Insert,
   }
 }

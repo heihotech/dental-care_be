@@ -9,25 +9,23 @@ const ErrorMessage = {
 
 const joiQueries = {
   name: Joi.string().optional(),
-  description: Joi.string().optional(),
+  display: Joi.string().optional(),
   withUsers: Joi.bool().optional().default(false),
   withUserProfile: Joi.bool().optional().default(false),
-  withPermissions: Joi.bool().optional().default(false),
   withActor: Joi.bool().optional().default(false),
 }
 const joiParams = {
   withUsers: Joi.bool().optional().default(false),
   withUserProfile: Joi.bool().optional().default(false),
-  withPermissions: Joi.bool().optional().default(false),
   withActor: Joi.bool().optional().default(false),
 }
 const joiCreatePayload = {
   name: Joi.string().required(),
-  description: Joi.string().required(),
+  display: Joi.string().required(),
 }
 const joiEditPayload = {
   name: Joi.string().optional(),
-  description: Joi.string().optional(),
+  display: Joi.string().optional(),
 }
 
 module.exports = ({ models }) => {
@@ -39,7 +37,7 @@ module.exports = ({ models }) => {
     attribute: 'usersCount',
   }
 
-  const buildQuery = ({ name, description }) => {
+  const buildQuery = ({ name, display }) => {
     const condition = []
 
     if (name) {
@@ -47,9 +45,9 @@ module.exports = ({ models }) => {
         name: { [Op.iLike]: `%${name}%` },
       })
     }
-    if (description) {
+    if (display) {
       condition.push({
-        description: { [Op.iLike]: `%${description}%` },
+        display: { [Op.iLike]: `%${display}%` },
       })
     }
 

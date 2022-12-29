@@ -2,7 +2,6 @@ module.exports = (services) => {
   require('./user')(services)
   require('./profile')(services)
   require('./role')(services)
-  require('./permission')(services)
   require('./doctor')(services)
   require('./clinic')(services)
   require('./schedule')(services)
@@ -12,10 +11,4 @@ module.exports = (services) => {
   require('./region/village')(services)
   require('./region/address')(services)
   require('./patient')(services)
-  require('./insurance')(services)
-  require('./doc-templater/category')(services)
-  require('./doc-templater/document')(services)
-  // pharmacy
-  require('./pharmacy/medicine')(services)
-  require('./pharmacy/pharmacy-pool')(services)
 }
