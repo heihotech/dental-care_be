@@ -17,7 +17,6 @@ const joiQueries = {
   profileId: Joi.number().optional(),
   withProfile: Joi.bool().optional().default(false),
   withRoles: Joi.bool().optional().default(false),
-  withPermissions: Joi.bool().optional().default(false),
 }
 const joiParams = {
   userId: Joi.string().guid().required().messages({
@@ -28,7 +27,6 @@ const joiParams = {
     'string.empty': ErrorMessage.UserIdRequired,
   }),
   withRoles: Joi.bool().optional().default(false),
-  withPermissions: Joi.bool().optional().default(false),
   withProfile: Joi.bool().optional().default(true),
 }
 const joiCreatePayload = {
@@ -77,40 +75,13 @@ module.exports = ({ models }) => {
 
   const parseRelations = (relations = {}) => {
     const include = []
-    const {
-      Role,
-      Profile,
-      Permission,
-      Address,
-      Province,
-      City,
-      District,
-      Village,
-    } = models
-    const { withProfile, withRoles, withPermissions, name } = relations
+    const { Role, Profile, Address, Province, City, District, Village } = models
+    const { withProfile, withRoles, name } = relations
 
     if (withRoles) {
       include.push({
         model: Role,
         as: 'roles',
-        through: { attributes: [] },
-        attributes: {
-          exclude: [
-            'createdAt',
-            'updatedAt',
-            'deletedAt',
-            'createdById',
-            'updatedById',
-            'deletedById',
-          ],
-        },
-      })
-    }
-
-    if (withPermissions) {
-      include.push({
-        model: Permission,
-        as: 'permissions',
         through: { attributes: [] },
         attributes: {
           exclude: [

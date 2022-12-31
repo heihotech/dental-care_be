@@ -13,18 +13,18 @@ const joiParams = {
   withVillage: Joi.bool().optional().default(false),
 }
 const joiCreatePayload = {
-  location: Joi.string().required().min(3),
+  location: Joi.string().required().allow(null, ''),
   villageId: Joi.number().required().allow(null),
-  phone: Joi.string().required().allow('', null),
-  zipCode: Joi.number().required().allow('', null),
+  phone: Joi.string().optional().allow('', null),
+  zipCode: Joi.number().optional().allow('', null),
   latitude: Joi.string().optional().allow('', null),
   longitude: Joi.string().optional().allow('', null),
 }
 const joiEditPayload = {
   location: Joi.string().required().min(3),
   villageId: Joi.number().required(),
-  phone: Joi.string().required().min(3),
-  zipCode: Joi.number().required(),
+  phone: Joi.string().required().allow(null, ''),
+  zipCode: Joi.number().required().allow(null, ''),
   latitude: Joi.string().optional().allow('', null),
   longitude: Joi.string().optional().allow('', null),
 }

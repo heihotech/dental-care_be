@@ -73,12 +73,22 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      therapy: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-      },
       cost: {
         type: DataTypes.DECIMAL,
+        allowNull: true,
+      },
+      fullName: {
+        field: 'full_name',
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      phoneNumber: {
+        field: 'phone_number',
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      complaint: {
+        type: DataTypes.STRING,
         allowNull: true,
       },
       createdAt: {

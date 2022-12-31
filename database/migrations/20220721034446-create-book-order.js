@@ -56,12 +56,20 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: true,
       },
-      therapy: {
-        type: Sequelize.TEXT,
-        allowNull: true,
-      },
       cost: {
         type: Sequelize.DECIMAL,
+        allowNull: true,
+      },
+      full_name: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      phone_number: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      complaint: {
+        type: Sequelize.STRING,
         allowNull: true,
       },
       deleted_at: {

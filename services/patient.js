@@ -25,7 +25,7 @@ const joiCreatePayload = {
   nik: Joi.string().optional().allow('', null),
   gender: Joi.string().required().valid('M', 'F'),
   religion: Joi.string().required().min(3),
-  birthDate: JoiDate.date().format('DD-MM-YYYY').required(),
+  birthDate: JoiDate.date().required(),
   avatarUrl: Joi.string().optional().allow('', null),
   isIndonesian: Joi.boolean().optional().default(true),
 }
@@ -36,7 +36,7 @@ const joiEditPayload = {
   nik: Joi.string().optional().allow('', null),
   gender: Joi.string().optional().valid('M', 'F'),
   religion: Joi.string().optional().min(3),
-  birthDate: JoiDate.date().format('DD-MM-YYYY').optional(),
+  birthDate: JoiDate.date().optional(),
   avatarUrl: Joi.string().optional().allow('', null),
   isIndonesian: Joi.boolean().optional().default(true),
 }
@@ -106,27 +106,19 @@ module.exports = ({ models }) => {
         include: {
           model: Village,
           as: 'village',
-          attributes: {
-            exclude: ['createdAt', 'updatedAt', 'deletedAt'],
-          },
+          attributes: ['name'],
           include: {
             model: District,
             as: 'district',
-            attributes: {
-              exclude: ['createdAt', 'updatedAt', 'deletedAt'],
-            },
+            attributes: ['name'],
             include: {
               model: City,
               as: 'city',
-              attributes: {
-                exclude: ['createdAt', 'updatedAt', 'deletedAt'],
-              },
+              attributes: ['name'],
               include: {
                 model: Province,
                 as: 'province',
-                attributes: {
-                  exclude: ['createdAt', 'updatedAt', 'deletedAt'],
-                },
+                attributes: ['name'],
               },
             },
           },

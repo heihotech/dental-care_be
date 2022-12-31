@@ -32,7 +32,6 @@ module.exports = ({ models }) => {
           attributes: ['id', 'username', 'email', 'isVerified'],
           include: [
             { model: models.Role, as: 'roles' },
-            { model: models.Permission, as: 'permissions' },
             {
               model: models.Profile,
               as: 'profile',
@@ -55,14 +54,6 @@ module.exports = ({ models }) => {
             return { id: el.id, name: el.name }
           }),
           isVerified: user.isVerified,
-          permissions: user.permissions.map((el) => {
-            return {
-              id: el.id,
-              path: el.path,
-              method: el.method,
-              isPublic: el.isPublic,
-            }
-          }),
         }
 
         let method = {
@@ -75,32 +66,6 @@ module.exports = ({ models }) => {
             method.method = property
           }
         }
-
-        const permission = await models.Permission.findOne({
-          where: {
-            [Op.and]: [{ path: method.path }, { method: method.method }],
-          },
-          attributes: ['id', 'path', 'method', 'isPublic'],
-        })
-
-        // if (!permission) {
-        //   res.statusCode = 404
-        //   throw new Error('permission for this route unavailable')
-        // }
-
-        // if (permission.isPublic === false) {
-        //   let isAuthorized = false
-        //   req.user.permissions.forEach((item) => {
-        //     if (item.id === permission.id) {
-        //       isAuthorized = true
-        //     }
-        //   })
-
-        //   if (!isAuthorized) {
-        //     res.statusCode = 403
-        //     throw new Error('unauthorized for this route')
-        //   }
-        // }
 
         return next()
       } catch (err) {

@@ -15,6 +15,7 @@ module.exports = {
 
     app.use(cookieParser())
     app.use(cors({ credentials: true, origin: `${config.AllowOrigin}` }))
+    // app.use(cors({ credentials: true, origin: '*' }))
     app.use(express.urlencoded({ extended: true }))
     app.use(express.json())
     app.use('/files', express.static('public'))
