@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Profile.hasOne(models.User, { foreignKey: 'profileId', as: 'user' })
-      Profile.hasMany(models.Doctor, { foreignKey: 'profileId', as: 'doctor' })
       Profile.belongsTo(models.Address, {
         foreignKey: 'addressId',
         as: 'address',

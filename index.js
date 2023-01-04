@@ -21,6 +21,7 @@
     patientService,
     insuranceService,
     outpatientService,
+    bookOrderService,
     // pharmacy
     medicineService,
     pharmacyPoolService,
@@ -51,6 +52,7 @@
       patientService,
       insuranceService,
       outpatientService,
+      bookOrderService,
       // pharmacy
       medicineService,
       pharmacyPoolService,

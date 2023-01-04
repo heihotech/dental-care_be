@@ -2,35 +2,43 @@ const { v4: uuidv4 } = require('uuid')
 
 const schedules = []
 
-const times = ['07.00-13.00', '15.00-21.00']
+const allSchedules = [
+  {
+    code: 'NCH',
+    schedules: [
+      { day: 1, time: '06.00 - 07:00' },
+      { day: 2, time: '06.00 - 07:00' },
+      { day: 3, time: '06.00 - 07:00' },
+      { day: 4, time: '06.00 - 07:00' },
+      { day: 5, time: '06.00 - 07:00' },
+      { day: 6, time: '06.00 - 07:00' },
+      { day: 1, time: '16.00 - 20:00' },
+      { day: 2, time: '16.00 - 20:00' },
+      { day: 3, time: '16.00 - 20:00' },
+      { day: 4, time: '16.00 - 20:00' },
+      { day: 5, time: '16.00 - 20:00' },
+      { day: 6, time: '16.00 - 20:00' },
+    ],
+  },
+  {
+    code: 'AND',
+    schedules: [
+      { day: 2, time: '16.00 - 20:00' },
+      { day: 4, time: '16.00 - 20:00' },
+    ],
+  },
+]
 
-const addDays = (date, days) => {
-  let newDate = {
-    guid: null,
-    day: null,
-    month: null,
-    year: null,
-    time: null,
-    created_at: null,
-    updated_at: null,
-  }
-  date.setDate(date.getDate() + parseInt(days))
-  newDate.guid = uuidv4()
-  newDate.day = date.getDate()
-  newDate.month = date.getMonth() + 1
-  newDate.year = date.getFullYear()
-  newDate.created_at = new Date()
-  newDate.updated_at = new Date()
-  return newDate
-}
-
-let currentDate = new Date()
-for (let i = 0; i < 365; i++) {
-  let newDate = addDays(currentDate, 1)
-  for (let t = 0; t < times.length; t++) {
-    newDate.time = times[t]
-    schedules.push({ ...newDate })
-  }
+for (let i = 0; i < allSchedules.length; i++) {
+  allSchedules[i].schedules.map((el) => {
+    schedules.push({
+      guid: uuidv4(),
+      created_at: new Date(),
+      updated_at: new Date(),
+      code: allSchedules[i].code,
+      schedule: el,
+    })
+  })
 }
 
 module.exports = schedules

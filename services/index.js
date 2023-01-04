@@ -9,6 +9,7 @@ module.exports = {
       doctorService: require('./doctor')({ models }),
       clinicService: require('./clinic')({ models }),
       patientService: require('./patient')({ models }),
+      bookOrderService: require('./bookorder')({ models }),
       provinceService: require('./region/province')({ models }),
       cityService: require('./region/city')({ models }),
       districtService: require('./region/district')({ models }),

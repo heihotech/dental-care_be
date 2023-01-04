@@ -1,24 +1,32 @@
-'use strict';
-
+const { v4: uuidv4 } = require('uuid')
+const doctors = require('./sources/doctors')
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+  up: async (queryInterface, Sequelize) => {
+    let payload = []
+    for (const el of doctors) {
+      const user = await queryInterface.rawSelect(
+        'users',
+        {
+          where: {
+            username: el.username,
+          },
+        },
+        ['id']
+      )
+
+      if (user) {
+        delete el.username
+        payload.push({
+          ...el,
+          user_id: user,
+        })
+      }
+    }
+
+    return await queryInterface.bulkInsert('doctors', payload)
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
-};
+  down: async (queryInterface, Sequelize) => {
+    return await queryInterface.bulkDelete('doctors', null, {})
+  },
+}

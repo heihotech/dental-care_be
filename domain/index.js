@@ -27,6 +27,7 @@ module.exports = {
       patientService,
       insuranceService,
       outpatientService,
+      bookOrderService,
       // pharmacy
       medicineService,
       pharmacyPoolService,
@@ -54,6 +55,7 @@ module.exports = {
       patientService,
       insuranceService,
       outpatientService,
+      bookOrderService,
       // pharmacy
       medicineService,
       pharmacyPoolService,
@@ -76,6 +78,7 @@ module.exports = {
       patientService,
       insuranceService,
       outpatientService,
+      bookOrderService,
       // pharmacy
       medicineService,
       pharmacyPoolService,
@@ -98,6 +101,7 @@ module.exports = {
       patientService,
       insuranceService,
       outpatientService,
+      bookOrderService,
       // pharmacy
       medicineService,
       pharmacyPoolService,
@@ -148,6 +152,7 @@ module.exports = {
       patientService,
       insuranceService,
       outpatientService,
+      bookOrderService,
       // pharmacy
       medicineService,
       pharmacyPoolService,

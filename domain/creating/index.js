@@ -12,4 +12,5 @@ module.exports = (services) => {
   require('./region/village')(services)
   require('./region/address')(services)
   require('./patient')(services)
+  require('./book-order')(services)
 }

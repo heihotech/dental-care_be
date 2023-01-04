@@ -8,5 +8,6 @@ module.exports = (services) => {
   require('./patient')(services)
   require('./profile')(services)
   require('./role')(services)
-  require('./clinic')(services)
+  require('./doctor')(services)
+  require('./book-order')(services)
 }

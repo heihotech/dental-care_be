@@ -59,22 +59,6 @@ module.exports = ({ models }) => {
     const { User, Profile, Permission } = models
     const { withUsers, withUserProfile, withPermissions } = relations
 
-    include.push({
-      model: User,
-      as: 'createdBy',
-      include: { model: Profile, as: 'profile' },
-    })
-    include.push({
-      model: User,
-      as: 'deletedBy',
-      include: { model: Profile, as: 'profile' },
-    })
-    include.push({
-      model: User,
-      as: 'updatedBy',
-      include: { model: Profile, as: 'profile' },
-    })
-
     if (withUsers) {
       if (withUserProfile) {
         include.push({
@@ -114,9 +98,7 @@ module.exports = ({ models }) => {
   const ValidateId = async (params) => await h.ValidateId(params)
 
   const GetAll = async (query) =>
-    await h.GetAll(parseRelations(query), buildQuery(query), query, [
-      countUsers,
-    ])
+    await h.GetAll(parseRelations(query), buildQuery(query), query)
 
   const GetOne = async (params, query) =>
     await h.GetOne(params, parseRelations(query), query)

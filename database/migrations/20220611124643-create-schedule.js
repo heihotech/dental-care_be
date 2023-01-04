@@ -1,37 +1,31 @@
 'use strict'
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('doctor_clinics', {
+    await queryInterface.createTable('schedules', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.BIGINT,
       },
-      clinic_id: {
-        type: Sequelize.BIGINT,
-        references: {
-          model: 'clinics',
-          key: 'id',
-        },
+      guid: {
+        allowNull: false,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
       },
       doctor_id: {
+        allowNull: true,
         type: Sequelize.BIGINT,
         references: {
           model: 'doctors',
           key: 'id',
         },
       },
-      // 1 (senin), 2 (selasa), 3 (rabu), 4 (kamis), 5 (jumat), 6 (sabtu), 7 (minggu), 8 (hari libur nasional).
-      // [
-      //   {
-      //     day: {1},
-      //     open: {'08:00'},
-      //     close: {'11:00'},
-      //   },
-      // ]
-      schedules: {
-        type: Sequelize.ARRAY(Sequelize.JSONB),
+      day: {
+        type: Sequelize.INTEGER,
+      },
+      time: {
+        type: Sequelize.STRING,
       },
       deleted_at: {
         allowNull: true,
@@ -48,6 +42,6 @@ module.exports = {
     })
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('doctor_clinics')
+    await queryInterface.dropTable('schedules')
   },
 }

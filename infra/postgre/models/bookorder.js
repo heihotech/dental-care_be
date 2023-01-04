@@ -1,5 +1,6 @@
 'use strict'
 const { Model } = require('sequelize')
+const { modelInit } = require('../config')
 module.exports = (sequelize, DataTypes) => {
   class BookOrder extends Model {
     /**
@@ -8,7 +9,18 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      BookOrder.belongsTo(models.Patient, {
+        foreignKey: 'patientId',
+        as: 'patient',
+      })
+      BookOrder.belongsTo(models.Doctor, {
+        foreignKey: 'doctorId',
+        as: 'doctor',
+      })
+      BookOrder.belongsTo(models.Schedule, {
+        foreignKey: 'scheduleId',
+        as: 'schedule',
+      })
     }
   }
   BookOrder.init(
@@ -37,12 +49,12 @@ module.exports = (sequelize, DataTypes) => {
           key: 'id',
         },
       },
-      clinicId: {
-        field: 'clinic_id',
+      scheduleId: {
+        field: 'schedule_id',
         allowNull: true,
         type: DataTypes.BIGINT,
         references: {
-          model: 'clinics',
+          model: 'schedules',
           key: 'id',
         },
       },
@@ -109,6 +121,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
+      ...modelInit,
       modelName: 'BookOrder',
     }
   )

@@ -42,7 +42,7 @@ sequelize model:create --name MedicalResumeMedicine --attributes name:string
 sequelize model:create --name MedicinePackage --attributes name:string
 
 sequelize model:create --name Batch --attributes name:string
-sequelize model:create --name MedicineBatch --attributes name:string
+sequelize model:create --name DoctorClinicSchedule --attributes name:string
 
 
 

@@ -13,9 +13,13 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId',
         as: 'user',
       })
-      Doctor.hasMany(models.DoctorClinic, {
+      Doctor.hasMany(models.Schedule, {
         foreignKey: 'doctorId',
-        as: 'doctorClinics',
+        as: 'schedules',
+      })
+      Doctor.hasMany(models.BookOrder, {
+        foreignKey: 'doctorId',
+        as: 'bookOrders',
       })
     }
   }
@@ -32,8 +36,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
       },
-      specialist: {
+      code: {
         unique: true,
+        type: DataTypes.STRING,
+      },
+      specialist: {
         type: DataTypes.STRING,
       },
       userId: {

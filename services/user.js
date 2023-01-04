@@ -17,6 +17,7 @@ const joiQueries = {
   profileId: Joi.number().optional(),
   withProfile: Joi.bool().optional().default(false),
   withRoles: Joi.bool().optional().default(false),
+  roleIds: Joi.array().items(Joi.string().guid()),
 }
 const joiParams = {
   userId: Joi.string().guid().required().messages({
@@ -76,7 +77,7 @@ module.exports = ({ models }) => {
   const parseRelations = (relations = {}) => {
     const include = []
     const { Role, Profile, Address, Province, City, District, Village } = models
-    const { withProfile, withRoles, name } = relations
+    const { withProfile, withRoles, name, roleIds } = relations
 
     if (withRoles) {
       include.push({
@@ -84,15 +85,10 @@ module.exports = ({ models }) => {
         as: 'roles',
         through: { attributes: [] },
         attributes: {
-          exclude: [
-            'createdAt',
-            'updatedAt',
-            'deletedAt',
-            'createdById',
-            'updatedById',
-            'deletedById',
-          ],
+          exclude: ['createdAt', 'updatedAt', 'deletedAt'],
         },
+        where:
+          roleIds && roleIds.length > 0 ? { guid: { [Op.in]: roleIds } } : {},
       })
     }
 

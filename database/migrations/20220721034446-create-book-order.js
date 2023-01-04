@@ -24,11 +24,11 @@ module.exports = {
           key: 'id',
         },
       },
-      clinic_id: {
+      schedule_id: {
         allowNull: true,
         type: Sequelize.BIGINT,
         references: {
-          model: 'clinics',
+          model: 'schedules',
           key: 'id',
         },
       },

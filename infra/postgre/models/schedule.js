@@ -2,20 +2,24 @@
 const { Model } = require('sequelize')
 const { modelInit } = require('../config')
 module.exports = (sequelize, DataTypes) => {
-  class Clinic extends Model {
+  class Schedule extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Clinic.hasMany(models.DoctorClinic, {
-        foreignKey: 'clinicId',
-        as: 'ClinicDoctors',
+      Schedule.belongsTo(models.Doctor, {
+        foreignKey: 'doctorId',
+        as: 'doctor',
+      })
+      Schedule.hasMany(models.BookOrder, {
+        foreignKey: 'scheduleId',
+        as: 'bookOrders',
       })
     }
   }
-  Clinic.init(
+  Schedule.init(
     {
       id: {
         allowNull: false,
@@ -28,16 +32,19 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
       },
-      name: {
-        type: DataTypes.STRING,
+      doctorId: {
+        type: DataTypes.BIGINT,
+        references: {
+          model: 'doctors',
+          key: 'id',
+        },
+        field: 'doctor_id',
       },
-      code: {
-        type: DataTypes.STRING,
+      day: {
+        type: DataTypes.INTEGER,
       },
-      isShow: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
-        field: 'is_show',
+      time: {
+        type: DataTypes.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -58,8 +65,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       ...modelInit,
-      modelName: 'Clinic',
+      modelName: 'Schedule',
     }
   )
-  return Clinic
+  return Schedule
 }

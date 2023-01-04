@@ -13,8 +13,11 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
       },
-      specialist: {
+      code: {
         unique: true,
+        type: Sequelize.STRING,
+      },
+      specialist: {
         type: Sequelize.STRING,
       },
       user_id: {

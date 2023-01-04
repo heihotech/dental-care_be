@@ -4,52 +4,12 @@ const clinics = []
 
 const allClinics = [
   {
-    name: 'Poli Dalam 1',
-    code: 'DA1',
+    name: 'Klinik Gigi 1',
+    code: 'GI1',
   },
   {
-    name: 'Poli Dalam 2',
-    code: 'DA2',
-  },
-  {
-    name: 'Poli Umum',
-    code: 'UMU',
-  },
-  {
-    name: 'Poli Gigi',
-    code: 'GIG',
-  },
-  {
-    name: 'Poli Mata',
-    code: 'MAT',
-  },
-  {
-    name: 'Poli Anak',
-    code: 'ANA',
-  },
-  {
-    name: 'Poli Paru',
-    code: 'PAR',
-  },
-  {
-    name: 'Poli Dots',
-    code: 'DOT',
-  },
-  {
-    name: 'Poli Bedah',
-    code: 'BED',
-  },
-  {
-    name: 'Poli Saraf',
-    code: 'SAR',
-  },
-  {
-    name: 'Poli Orthopedi',
-    code: 'ORT',
-  },
-  {
-    name: 'Poli VIP',
-    code: 'VIP',
+    name: 'Klinik Gigi 2',
+    code: 'GI2',
   },
 ]
 
