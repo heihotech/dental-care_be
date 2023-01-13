@@ -17,6 +17,7 @@ const joiQueries = {
 }
 const joiParams = {
   withAddress: Joi.bool().optional().default(false),
+  withRecords: Joi.bool().optional().default(false),
 }
 const joiCreatePayload = {
   phoneNumber: Joi.string().optional().allow('', null),
@@ -95,9 +96,16 @@ module.exports = ({ models }) => {
 
   const parseRelations = (relations = {}) => {
     const include = []
-    const { Address, Province, City, District, Village } = models
-    const { withAddress } = relations
+    const { BookOrder, Address, Province, City, District, Village } = models
+    const { withAddress, withRecords } = relations
 
+    if (withRecords) {
+      include.push({
+        model: BookOrder,
+        as: 'bookOrders',
+        attributes: ['arrival', 'diagnose', 'therapy', 'patientComplaint'],
+      })
+    }
     if (withAddress) {
       include.push({
         model: Address,

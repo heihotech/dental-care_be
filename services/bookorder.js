@@ -15,11 +15,17 @@ const joiQueries = {
   diagnose: Joi.string().optional().min(1),
   therapy: Joi.string().optional().min(1),
   complaint: Joi.string().optional().min(1),
+  onlyNotValidated: Joi.bool().optional().default(false),
+  onlyNotEvaluated: Joi.bool().optional().default(false),
+  onlyEvaluated: Joi.bool().optional().default(false),
 }
 const joiParams = {
   withDoctor: Joi.bool().optional().default(false),
   withSchedule: Joi.bool().optional().default(false),
   withPatient: Joi.bool().optional().default(false),
+  onlyNotValidated: Joi.bool().optional().default(false),
+  onlyNotEvaluated: Joi.bool().optional().default(false),
+  onlyEvaluated: Joi.bool().optional().default(false),
 }
 const joiCreatePayload = {
   doctorId: Joi.number().required(),
@@ -61,8 +67,44 @@ module.exports = ({ models }) => {
     diagnose,
     therapy,
     complaint,
+    onlyNotValidated,
+    onlyNotEvaluated,
+    onlyEvaluated,
   }) => {
     const condition = []
+
+    if (onlyNotValidated) {
+      condition.push({
+        [Op.and]: [
+          { arrival: { [Op.is]: null } },
+          { patientId: { [Op.is]: null } },
+        ],
+      })
+    } else if (onlyNotEvaluated) {
+      condition.push({
+        [Op.and]: [
+          { arrival: { [Op.not]: null } },
+          { patientId: { [Op.not]: null } },
+          { diagnose: { [Op.is]: null } },
+          { therapy: { [Op.is]: null } },
+          { cost: { [Op.is]: null } },
+        ],
+      })
+    } else if (onlyEvaluated) {
+      condition.push({
+        [Op.and]: [
+          { arrival: { [Op.not]: null } },
+          { patientId: { [Op.not]: null } },
+          {
+            [Op.or]: [
+              { diagnose: { [Op.not]: null } },
+              { therapy: { [Op.not]: null } },
+              { cost: { [Op.not]: null } },
+            ],
+          },
+        ],
+      })
+    }
 
     if (patientId) {
       condition.push({ patientId: { [Op.eq]: patientId } })

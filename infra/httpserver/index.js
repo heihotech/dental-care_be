@@ -14,8 +14,21 @@ module.exports = {
     const app = express()
 
     app.use(cookieParser())
-    app.use(cors({ credentials: true, origin: `${config.AllowOrigin}` }))
-    // app.use(cors({ credentials: true, origin: '*' }))
+    let whitelist = ['http://localhost:3001', 'http://localhost:3000']
+    let corsOptions = {
+      origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+          callback(null, true)
+        } else {
+          callback(new Error('Not allowed by CORS'))
+        }
+      },
+    }
+    console.log(corsOptions.origin)
+    app.use(cors({ credentials: true, origin: corsOptions.origin }))
+    // app.use(cors({ credentials: true, origin: `${config.AllowOrigin}` }))
+    // app.use(cors({ origin: '*' }))
+    // app.use(cors({ credentials: false, origin: '*' }))
     app.use(express.urlencoded({ extended: true }))
     app.use(express.json())
     app.use('/files', express.static('public'))
